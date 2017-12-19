@@ -1,6 +1,7 @@
 // Setup initial game stats
 var score = 0;
 var lives = 2;
+var powerPellets = 4;
 
 
 // Define your ghosts here
@@ -56,10 +57,11 @@ function clearScreen() {
 
 function displayStats() {
   console.log('Score: ' + score + '     Lives: ' + lives);
+  console.log('\nPower-pellets: ' + powerPellets);
 }
 
 function displayMenu() {
-  console.log('\n\nSelect Option:\n');  // each \n creates a new line
+  console.log('\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
   for (var index = 0; index < ghosts.length; index++) {
     console.log('(' + (index + 1) + ') Eat ' + ghosts[index]['name']);
@@ -84,10 +86,16 @@ function eatGhost(ghost) {
     break
 
   }else {
-    console.log('\n'ghost['name'] + 'the ' + ghost['colour'] + ' ghost has killed Pac-man!');
+    console.log('\n ' + ghost['name'] + 'the ' + ghost['colour'] + ' ghost has killed Pac-man!');
     lives--
+    gameOver(lives)
   }
+}
 
+function gameOver(lives) {
+  if (lives === 0) {
+    process.exit()
+  }
 }
 
 // Process Player's Input
