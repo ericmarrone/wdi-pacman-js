@@ -62,12 +62,8 @@ function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
   for (var index = 0; index < ghosts.length; index++) {
-    ghost = ghosts[index]['name']
-    console.log('(' + (index + 1) + ') Eat ' + ghost);
+    console.log('(' + (index + 1) + ') Eat ' + ghosts[index]['name']);
   }
-
-
-
   console.log('(q) Quit');
 }
 
@@ -83,6 +79,16 @@ function eatDot() {
   score += 10;
 }
 
+function eatGhost(ghost) {
+  if (ghost['edible'] === true) {
+    break
+
+  }else {
+    console.log('\n'ghost['name'] + 'the ' + ghost['colour'] + ' ghost has killed Pac-man!');
+    lives--
+  }
+
+}
 
 // Process Player's Input
 function processInput(key) {
