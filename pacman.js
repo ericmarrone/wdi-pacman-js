@@ -65,7 +65,7 @@ function displayMenu() {
   console.log('(d) Eat Dot');
   console.log('(p) Eat Power-Pellet');
   for (var index = 0; index < ghosts.length; index++) {
-    console.log('(' + (index + 1) + ') Eat ' + ghosts[index]['name']);
+    console.log('(' + (index + 1) + ') Eat ' + ghosts[index]['name'] + ' (' + edibleStatus(ghosts[index]) + ')') ;
   }
   console.log('(q) Quit');
 }
@@ -75,6 +75,13 @@ function displayPrompt() {
   process.stdout.write('\nWaka Waka :v '); // :v is the Pac-Man emoji.
 }
 
+function edibleStatus(ghost) {
+  if (ghost.edible === true) {
+    return 'edible'
+  } else {
+    return 'inedible'
+  }
+}
 
 // Menu Options
 function eatDot() {
@@ -84,10 +91,11 @@ function eatDot() {
 
 function eatGhost(ghost) {
   if (ghost['edible'] === true) {
-    break
-
+    console.log('\n Pacman eats the ' + ghost['character'] + ' ' + ghost['name']);
+    score += 200
+    ghost['edible'] = false;
   }else {
-    console.log('\n' + ghost['name'] + 'the ' + ghost['colour'] + ' ghost has killed Pac-man!');
+    console.log('\n' + ghost['name'] + ' the ' + ghost['colour'] + ' ghost has killed Pac-man!');
     lives--
     gameOver(lives)
   }
@@ -126,6 +134,19 @@ function processInput(key) {
       } else {
         console.log('\nNo Power-Pellets left!');
       }
+    case '1':
+      eatGhost(ghosts[0]);
+      break;
+    case '2':
+      eatGhost(ghosts[1]);
+      break;
+    case '3':
+      eatGhost(ghosts[2]);
+      break;
+    case '4':
+      eatGhost(ghosts[3]);
+      break;
+
     default:
       console.log('\nInvalid Command!');
   }
@@ -149,7 +170,7 @@ drawScreen();
 stdin.on('data', function(key) {
   process.stdout.write(key);
   processInput(key);
-  setTimeout(drawScreen, 300); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
+  setTimeout(drawScreen, 500); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
 });
 
 // Player Quits
