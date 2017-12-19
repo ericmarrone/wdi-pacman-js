@@ -63,6 +63,7 @@ function displayStats() {
 function displayMenu() {
   console.log('\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
+  console.log('(p) Eat Power-Pellet');
   for (var index = 0; index < ghosts.length; index++) {
     console.log('(' + (index + 1) + ') Eat ' + ghosts[index]['name']);
   }
@@ -86,7 +87,7 @@ function eatGhost(ghost) {
     break
 
   }else {
-    console.log('\n ' + ghost['name'] + 'the ' + ghost['colour'] + ' ghost has killed Pac-man!');
+    console.log('\n' + ghost['name'] + 'the ' + ghost['colour'] + ' ghost has killed Pac-man!');
     lives--
     gameOver(lives)
   }
@@ -98,6 +99,16 @@ function gameOver(lives) {
   }
 }
 
+function eatPowerPellet() {
+  console.log('\nChomp! Ghosts are now edible!!!!');
+  score += 50;
+  for (var index = 0; index < ghosts.length; index++) {
+    ghosts[index]['edible'] = true;
+  }
+    powerPellets -= 1;
+}
+
+
 // Process Player's Input
 function processInput(key) {
   switch(key) {
@@ -108,6 +119,13 @@ function processInput(key) {
     case 'd':
       eatDot();
       break;
+    case 'p':
+      if (powerPellets > 0) {
+        eatPowerPellet();
+        break;
+      } else {
+        console.log('\nNo Power-Pellets left!');
+      }
     default:
       console.log('\nInvalid Command!');
   }
