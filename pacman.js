@@ -36,6 +36,8 @@ var clyde = {
   edible: false
 };
 
+var ghosts = [inky, blinky, pinky, clyde];
+
 
 
 // Draw the screen functionality
@@ -59,6 +61,13 @@ function displayStats() {
 function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
+  for (var index = 0; index < ghosts.length; index++) {
+    ghost = ghosts[index]['name']
+    console.log('(' + (index + 1) + ') Eat ' + ghost);
+  }
+
+
+
   console.log('(q) Quit');
 }
 
